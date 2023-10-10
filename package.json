@@ -3,7 +3,16 @@
   "version": "0.0.0",
   "description": "Culqi - Prueba técnica (Serverless AWS Lambdas)",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "serverless offline",
+    "deploy": "serverless deploy"
+  },
   "author": "bryanve <bryan.ve.bv@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.124",
+    "esbuild": "^0.19.4",
+    "serverless-esbuild": "^1.48.4",
+    "serverless-offline": "^13.2.0"
+  }
 }

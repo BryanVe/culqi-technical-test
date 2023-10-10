@@ -1,0 +1,22 @@
+service: culqi
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  tokens:
+    handler: src/tokens.handler
+    events:
+      - httpApi: 'POST /tokens'
+
+plugins:
+  - serverless-offline
+  - serverless-esbuild
+
+custom:
+  esbuild:
+    bundle: true
+    minify: true
