@@ -3,9 +3,9 @@ import {
 	APIGatewayProxyEvent,
 	Context,
 } from 'aws-lambda'
-import { validateCardInfo } from './utils'
+import { validateToken } from './utils'
 import { ResponseError, buildResponse, validateBusiness } from 'commons/utils'
-import { generateToken } from './domain'
+import { getCardInfo } from './domain'
 import 'commons/database'
 
 export const handler = async (
@@ -18,9 +18,9 @@ export const handler = async (
 
 		const { body: data, headers } = event
 		validateBusiness(headers['authorization'])
-		const cardInfo = validateCardInfo(data)
-		const token = await generateToken(cardInfo)
-		const response = buildResponse(200, token)
+		const token = validateToken(data)
+		const cardInfo = await getCardInfo(token)
+		const response = buildResponse(200, cardInfo)
 
 		callback(null, response)
 	} catch (error: unknown) {

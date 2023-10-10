@@ -14,3 +14,11 @@ export const saveToken = async (data: IToken) => {
 
 	return createdToken.toJSON()
 }
+
+export const getCardInfoFromToken = async (token: string) => {
+	const cardInfo = await Token.findOne({
+		token,
+	})
+
+	return cardInfo?.toJSON()
+}
