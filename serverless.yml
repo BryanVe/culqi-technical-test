@@ -5,6 +5,8 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
 
 functions:
   tokens:

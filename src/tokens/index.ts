@@ -6,6 +6,9 @@ import {
 import { validateBusiness, validateCardInfo } from './utils'
 import { ResponseError, buildResponse } from 'commons/utils'
 import { generateToken } from './domain'
+import { dbConnection } from 'commons/database'
+
+dbConnection().connect()
 
 export const handler = async (
 	event: APIGatewayProxyEvent,
@@ -16,7 +19,7 @@ export const handler = async (
 		const { body: data, headers } = event
 		validateBusiness(headers['authorization'])
 		const cardInfo = validateCardInfo(data)
-		const token = generateToken(cardInfo)
+		const token = await generateToken(cardInfo)
 		const response = buildResponse(200, token)
 
 		callback(null, response)

@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.124",
     "esbuild": "^0.19.4",
+    "mongoose": "^7.6.1",
     "serverless-esbuild": "^1.48.4",
     "serverless-offline": "^13.2.0"
   },
