@@ -11,6 +11,9 @@ export const buildResponse = (statusCode: number, data: {}) => {
 	const response = {
 		statusCode,
 		body: JSON.stringify(data),
+		headers: {
+			'content-type': 'application/json',
+		},
 	}
 
 	return response

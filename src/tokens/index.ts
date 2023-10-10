@@ -3,7 +3,7 @@ import {
 	APIGatewayProxyEvent,
 	Context,
 } from 'aws-lambda'
-import { validateCardInfo } from './utils'
+import { validateBusiness, validateCardInfo } from './utils'
 import { ResponseError, buildResponse } from 'commons/utils'
 import { generateToken } from './domain'
 
@@ -13,7 +13,8 @@ export const handler = async (
 	callback: APIGatewayProxyCallback
 ) => {
 	try {
-		const { body: data } = event
+		const { body: data, headers } = event
+		validateBusiness(headers['authorization'])
 		const cardInfo = validateCardInfo(data)
 		const token = generateToken(cardInfo)
 		const response = buildResponse(200, token)

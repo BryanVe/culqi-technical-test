@@ -1,8 +1,11 @@
 import { cardInfoDTO, CardInfoDTO } from '../schemas'
 import { ResponseError } from 'commons/utils'
 
-const validateExistence = (data: string | null) => {
-	if (!data) throw new ResponseError(400, 'Body was not provided')
+const validateExistence = (
+	data: string | null | undefined,
+	error: ResponseError
+) => {
+	if (!data) throw error
 
 	return data
 }
@@ -86,7 +89,10 @@ const validateCardNumber = (cardNumber: string) => {
 }
 
 export const validateCardInfo = (data: string | null): CardInfoDTO => {
-	data = validateExistence(data)
+	data = validateExistence(
+		data,
+		new ResponseError(400, 'Body was not provided')
+	)
 
 	const cardInfo = validateCardInfoSchema(data)
 	const { card_number, email, expiration_year, expiration_month } = cardInfo
@@ -97,4 +103,16 @@ export const validateCardInfo = (data: string | null): CardInfoDTO => {
 	validateEmail(email)
 
 	return cardInfo
+}
+
+export const validateBusiness = (bearer: string | undefined) => {
+	bearer = validateExistence(
+		bearer,
+		new ResponseError(401, 'Business bearer token not provided')
+	)
+
+	if (!bearer.startsWith('Bearer '))
+		throw new ResponseError(400, 'Invalid business bearer token')
+
+	// * Business validation using database
 }
