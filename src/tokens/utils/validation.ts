@@ -1,5 +1,5 @@
-import { cardInfoDTO, CardInfoDTO } from '../../schemas'
-import { ResponseError } from '../../../commons/domain/utils'
+import { cardInfoDTO, CardInfoDTO } from '../schemas'
+import { ResponseError } from 'commons/utils'
 
 const validateExistence = (data: string | null) => {
 	if (!data) throw new ResponseError(400, 'Body was not provided')

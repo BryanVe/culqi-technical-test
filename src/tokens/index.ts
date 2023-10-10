@@ -3,8 +3,8 @@ import {
 	APIGatewayProxyEvent,
 	Context,
 } from 'aws-lambda'
-import { validateCardInfo } from './domain/utils'
-import { ResponseError, buildResponse } from '../commons/domain/utils'
+import { validateCardInfo } from './utils'
+import { ResponseError, buildResponse } from 'commons/utils'
 import { generateToken } from './domain'
 
 export const handler = async (
@@ -21,7 +21,8 @@ export const handler = async (
 		callback(null, response)
 	} catch (error: unknown) {
 		if (error instanceof ResponseError) {
-			const response = buildResponse(error.statusCode, { error: error.message })
+			const { statusCode, message } = error
+			const response = buildResponse(statusCode, { error: message })
 
 			callback(null, response)
 		}
