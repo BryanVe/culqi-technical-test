@@ -1,6 +1,6 @@
 import { Schema, model, ObjectId, Types } from 'mongoose'
 
-interface IUser {
+export interface IToken {
 	token: string
 	email: string
 	card_number: string
@@ -9,7 +9,7 @@ interface IUser {
 	expiration_month: string
 }
 
-const userSchema = new Schema<IUser>(
+const tokenSchema = new Schema<IToken>(
 	{
 		token: { type: String, required: true },
 		email: { type: String, required: true },
@@ -20,7 +20,13 @@ const userSchema = new Schema<IUser>(
 	},
 	{
 		versionKey: false,
+		timestamps: true,
+		toJSON: {
+			transform: function (doc, ret) {
+				delete ret.cvv
+			},
+		},
 	}
 )
 
-export const User = model<IUser>('User', userSchema)
+export const Token = model<IToken>('token', tokenSchema)

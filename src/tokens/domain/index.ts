@@ -1,15 +1,20 @@
 import { generateRandomString } from 'commons/utils'
 import { CardInfoDTO } from '../schemas'
-import { User } from 'commons/database'
+import { checkTokenExistence, saveToken } from 'commons/database'
 
 export const generateToken = async (cardInfo: CardInfoDTO) => {
-	const token = generateRandomString(16)
-	const test = new User({
+	let token: string
+	let isTokenInDB: boolean
+
+	do {
+		token = generateRandomString(16)
+		isTokenInDB = await checkTokenExistence(token)
+	} while (isTokenInDB)
+
+	const savedToken = await saveToken({
 		...cardInfo,
 		token,
 	})
 
-	await test.save()
-
-	return cardInfo
+	return savedToken
 }
