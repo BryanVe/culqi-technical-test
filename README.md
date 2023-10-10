@@ -37,3 +37,18 @@ yarn dev
 ```
 
 Esto iniciará la aplicación en modo desarrollo y escuchará a cambios de forma local.
+
+## Despliegue
+
+En tu terminal:
+
+```sh
+# Uno de los siguientes comandos
+npm run deploy
+pnpm run deploy
+yarn deploy
+```
+
+Esto iniciará el despliegue de las funciones Lambda en AWS utilizando el script de serverless.
+Recuerda que previamente debes configurar las variables de entorno con las que se autenticará
+serverless para utilizar los servicios de AWS.
