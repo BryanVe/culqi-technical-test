@@ -1,0 +1,9 @@
+{
+  "name": "culqi-technical-test",
+  "version": "0.0.0",
+  "description": "Culqi - Prueba técnica (Serverless AWS Lambdas)",
+  "main": "index.js",
+  "scripts": {},
+  "author": "bryanve <bryan.ve.bv@gmail.com>",
+  "license": "ISC"
+}
