@@ -6,16 +6,16 @@ import {
 import { validateBusiness, validateCardInfo } from './utils'
 import { ResponseError, buildResponse } from 'commons/utils'
 import { generateToken } from './domain'
-import { dbConnection } from 'commons/database'
-
-dbConnection().connect()
+import 'commons/database'
 
 export const handler = async (
 	event: APIGatewayProxyEvent,
-	_context: Context,
+	context: Context,
 	callback: APIGatewayProxyCallback
 ) => {
 	try {
+		context.callbackWaitsForEmptyEventLoop = false
+
 		const { body: data, headers } = event
 		validateBusiness(headers['authorization'])
 		const cardInfo = validateCardInfo(data)
